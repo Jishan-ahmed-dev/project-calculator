@@ -1,18 +1,43 @@
-function appendToResult(value) {
-  document.getElementById("result").value += value;
-}
+document.addEventListener("DOMContentLoaded", function() {
 
-function clearResult() {
-  document.getElementById("result").value = "";
-}
+  var result = document.getElementById("result");
 
-function deleteLastCharacter() {
-  var currentResult = document.getElementById("result").value;
-  document.getElementById("result").value = currentResult.slice(0, -1);
-}
+  var buttons = document.querySelectorAll(".buttons button");
 
-function calculateResult() {
-  var result = document.getElementById("result").value;
-  var calculatedResult = eval(result);
-  document.getElementById("result").value = calculatedResult;
-}
+  buttons.forEach(function(button) {
+
+    button.addEventListener("click", function() {
+
+      var value = this.innerHTML;
+
+      if (value === "=") {
+
+        try {
+
+          result.value = eval(result.value);
+
+        } catch (error) {
+
+          result.value = "Error";
+
+        }
+
+      } else if (value === "C") {
+
+        result.value = "";
+
+      } else if (value === "\u2190") {
+
+        result.value = result.value.slice(0, -1);
+
+      } else {
+
+        result.value += value;
+
+      }
+
+    });
+
+  });
+
+});
